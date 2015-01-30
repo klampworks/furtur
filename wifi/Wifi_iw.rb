@@ -19,12 +19,12 @@ class Wifi_iw < Wifi_base
             if m = /^BSS (?<bssid>[0-9a-f:]+)/.match(l) then
                 i += 1
                 aps[i] = Hash.new
-                aps[i]['bssid'] = m.captures
+                aps[i]['bssid'] = m.captures[0]
                 aps[i]['enc'] = false
             end
 
             if m = /^\W*SSID: ([^\n]+)/.match(l) then
-                aps[i]['essid'] = m.captures
+                aps[i]['essid'] = m.captures[0]
             end
                 
             if /^\W*RSN:/.match(l) then
