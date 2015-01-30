@@ -7,14 +7,22 @@ class Test_wifi_iw < Test::Unit::TestCase
         return File.open(fn, 'rb') { |f| f.read }
     end
 
-    def test_yes()
+    def parse_scan(f)
         wifi = Wifi_iw.new
 
-        s = File.open("private/iw_wlan0_scan1", 'rb') { |f| f.read }
+        s = read f
 
         aps = wifi.parse_networks(s)
 
-        require "./private/iw_wlan0_scan1.rb"
+        require "./#{f}.rb"
         assert_equal(aps, $exp)
+    end
+
+    def test_scan1()
+        parse_scan "private/iw_wlan0_scan1"
+    end
+
+    def test_scan2()
+        parse_scan "private/iw_wlan0_scan2"
     end
 end
