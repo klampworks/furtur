@@ -1,9 +1,14 @@
 require 'open3'
 class Probe
 
-    def ping(addr)
-        _, _, _, t = Open3.popen3 "ping", "-c", "1", addr
+    def run_silent(*args)
+        _, _, _, t = Open3.popen3 *args
         t.value.success?
+
+    end
+
+    def ping(addr)
+        run_silent "ping", "-c", "1", addr
     end
 end
 
