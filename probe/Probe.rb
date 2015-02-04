@@ -10,8 +10,15 @@ class Probe
     def ping(addr)
         run_silent "ping", "-c", "1", addr
     end
+
+    def host(name)
+        run_silent "host-woods", name
+    end
 end
 
 p = Probe.new
-puts p.ping "8.8.8.8"
-puts p.ping "192.168.0.200"
+#puts p.ping "8.8.8.8"
+#puts p.ping "192.168.0.200"
+
+#puts p.host "google.com"
+#puts p.host "192.168.0.200"
