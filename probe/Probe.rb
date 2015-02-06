@@ -11,11 +11,12 @@ class Probe
         run_silent "ping", "-c", "1", addr
     end
 
-    def host(name, server)
-        run_silent "host-woods", name, server
+    def host(name, server="")
+        if server.empty?
+            run_silent "host-woods", name
+        else
+            run_silent "host-woods", name, server
+        end
     end
 
-    def host(name)
-        run_silent "host-woods", name
-    end
 end
