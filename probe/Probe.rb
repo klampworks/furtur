@@ -15,4 +15,7 @@ class Probe
         run_silent "host-woods", name, server
     end
 
+    def host(name)
+        run_silent "host-woods", name
+    end
 end
