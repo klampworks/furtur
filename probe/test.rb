@@ -12,4 +12,24 @@ class Test_probe < Test::Unit::TestCase
         p = Probe.new
         assert_equal(false, p.ping("192.168.100.200"))
     end
+
+    def test_host_valid_default()
+        p = Probe.new
+        assert(p.host("google.com"))
+    end
+
+    def test_host_valid_nondefault()
+        p = Probe.new
+        assert(p.host("google.com", "8.8.8.8"))
+    end
+
+    def test_host_invalid_default()
+        p = Probe.new
+        assert_equal(false, p.host("1"))
+    end
+
+    def test_host_invalid_nondefault()
+        p = Probe.new
+        assert_equal(false, p.host("google.com", "0"))
+    end
 end
