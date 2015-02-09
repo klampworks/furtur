@@ -32,4 +32,14 @@ class Test_probe < Test::Unit::TestCase
         p = Probe.new
         assert_equal(false, p.host("google.com", "0"))
     end
+
+    def test_http_google()
+        p = Probe.new
+        assert p.http_google
+    end
+
+    def test_http_wikipedia()
+        p = Probe.new
+        assert p.http_wikipedia
+    end
 end
