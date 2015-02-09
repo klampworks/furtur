@@ -39,7 +39,6 @@ class Probe
         
         html, ex = wget \
             'https://en.wikipedia.org/w/index.php?title=Furtur&oldid=568297460'
-        puts html
         return false unless ex
         not (html =~ /Furfur causes <a href="\/wiki\/Love" title="Love">love<\/a> between a man and a woman/).nil?
     end
