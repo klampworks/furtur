@@ -46,4 +46,18 @@ class Probe
     def tor_running?
         run_silent "ps -e | grep tor"
     end
+
+    def wait(o, re, to)
+        while 1
+            begin
+                result = o.read_nonblock 1000
+                return true if result =~ re
+            rescue IO::WaitReadable
+                os = IO.select([o], [], [], to)
+                return false unless os
+                retry
+            end
+        end
+    end
+
 end
