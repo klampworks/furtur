@@ -42,4 +42,8 @@ class Probe
         return false unless ex
         not (html =~ /Furfur causes <a href="\/wiki\/Love" title="Love">love<\/a> between a man and a woman/).nil?
     end
+
+    def tor_running?
+        run_silent "ps -e | grep tor"
+    end
 end
