@@ -29,6 +29,12 @@ class Probe
         return sout.read, t.value.success?
     end
 
+    def wget_tor(addr)
+        return "", false unless start_tor
+        _, sout, _, t = Open3.popen3 "torify", "wget", "-O", "-", addr
+        return sout.read, t.value.success?
+    end
+
     def http_google()
         html, ex = wget "google.com"
         return false unless ex
