@@ -42,4 +42,16 @@ class Test_probe < Test::Unit::TestCase
         p = Probe.new
         assert p.http_wikipedia
     end
+
+    def test_tor_valid
+        p = Probe.new
+        assert (p.wget_tor "facebookcorewwwi.onion")[1]
+    end
+
+    def test_tor_invalid
+        p = Probe.new
+
+        # Cunts.
+        assert_equal false, (p.wget_tor "forums.freebsd.org")[1]
+    end
 end
