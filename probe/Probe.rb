@@ -9,7 +9,6 @@ class Probe
     def run_silent(*args)
         _, _, _, t = Open3.popen3 *args
         t.value.success?
-
     end
 
     def ping(addr)
@@ -76,4 +75,12 @@ class Probe
 
         true
     end
+
+    def get_route
+        Open3.popen3("route") do |_, o, _, t|
+            t.value
+            (/default\W+(?<gw>[0-9\.]+)/.match o.read)[:gw]
+        end
+    end
+        
 end
