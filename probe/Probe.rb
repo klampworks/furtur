@@ -71,6 +71,7 @@ class Probe
             File.write('/tmp/torrc', "SocksPort 9050\nLog info stderr\n")
             _, _, e = Open3.popen3("tor", "-f", "/tmp/torrc")
             wait e, /Bootstrapped 100%: Done/, 10
+            close e
         end
 
         true
