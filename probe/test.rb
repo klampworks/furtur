@@ -3,7 +3,6 @@ require 'test/unit'
 
 class Test_probe < Test::Unit::TestCase
 
-=begin
     def test_ping_valid()
         p = Probe.new
         assert(p.ping "8.8.8.8")
@@ -55,7 +54,6 @@ class Test_probe < Test::Unit::TestCase
         # Cunts.
         assert_equal false, (p.wget_tor "forums.freebsd.org")[1]
     end
-=end
 
     def test_get_gw
         p = Probe.new
