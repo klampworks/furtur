@@ -57,8 +57,8 @@ class Test_probe < Test::Unit::TestCase
     end
 =end
 
-    def test_get_route
+    def test_get_gw
         p = Probe.new
-        assert_equal "192.168.100.1", p.get_route
+        assert_equal "192.168.100.1", p.get_gw
     end
 end
