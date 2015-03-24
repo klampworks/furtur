@@ -24,14 +24,16 @@ class Probe
     end
 
     def wget(addr)
-        _, sout, _, t = Open3.popen3 "wget", "-O", "-", addr
-        return sout.read, t.value.success?
+        Open3.popen3 "wget", "-O", "-", addr do |i, o, e, t|
+            return o.read, t.value.success?
+       end
     end
 
     def wget_tor(addr)
         return "", false unless start_tor
-        _, sout, _, t = Open3.popen3 "torify", "wget", "-O", "-", addr
-        return sout.read, t.value.success?
+        Open3.popen3 "torify", "wget", "-O", "-", addr do |i, o, e, t|
+            return o.read, t.value.success?
+        end
     end
 
     def http_google()
