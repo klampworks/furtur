@@ -7,8 +7,13 @@ Encoding.default_internal = Encoding::UTF_8
 class Probe
 
     def run_silent(*args)
-        _, _, _, t = Open3.popen3 *args
-        t.value.success?
+        (run_stdout *args)[1]
+    end
+
+    def run_stdout(*args)
+        Open3.popen3 *args do |i, o, e, t|
+            return o.read, t.value.success?
+       end
     end
 
     def ping(addr)
@@ -24,16 +29,12 @@ class Probe
     end
 
     def wget(addr)
-        Open3.popen3 "wget", "-O", "-", addr do |i, o, e, t|
-            return o.read, t.value.success?
-       end
+        run_stdout "wget", "-O", "-", addr
     end
 
     def wget_tor(addr)
         return "", false unless start_tor
-        Open3.popen3 "torify", "wget", "-O", "-", addr do |i, o, e, t|
-            return o.read, t.value.success?
-        end
+        run_stdout "torify", "wget", "-O", "-", addr
     end
 
     def http_google()
@@ -78,10 +79,7 @@ class Probe
     end
 
     def get_gw
-        Open3.popen3("route") do |_, o, _, t|
-            t.value
-            (/default\W+(?<gw>[0-9\.]+)/.match o.read)[:gw]
-        end
+        (/default\W+(?<gw>[0-9\.]+)/.match (run_stdout "route").first)[:gw]
     end
         
     def crawl_gw
