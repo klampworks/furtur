@@ -6,6 +6,10 @@ Encoding.default_internal = Encoding::UTF_8
 
 class Probe
 
+    def log name, contents
+        File.open(name, 'w') { |file| file.write(contents) }
+    end
+
     def run_silent(*args)
         (run_stdout *args)[1]
     end
