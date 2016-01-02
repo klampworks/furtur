@@ -1,10 +1,15 @@
 require 'open3'
+require 'uri'
 
 # Some webpages return unicode data through wget.
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
 class Probe
+    
+    def namify_cmd *args
+        URI::encode_www_form [(args.join ' ')]
+    end
 
     def log name, contents
         File.open(name, 'w') { |file| file.write(contents) }
