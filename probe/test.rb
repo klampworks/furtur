@@ -59,4 +59,11 @@ class Test_probe < Test::Unit::TestCase
         p = Probe.new
         assert_equal "192.168.100.1", p.get_gw
     end
+
+    def test_namify_cmd
+        p = Probe.new
+        assert_equal \
+            'echo+bunnys+%3E%3E+%2Fvar%2Flib%2Fportage%2Fworld', 
+            (p.namify_cmd "echo", "bunnys", ">>", "/var/lib/portage/world")
+    end
 end
