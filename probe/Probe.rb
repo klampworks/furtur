@@ -15,6 +15,12 @@ class Probe
         File.open(name, 'w') { |file| file.write(contents) }
     end
 
+    def log_cmd o, e, *args
+        name = namify_cmd *args
+        log "#{name}.out", o.read
+        log "#{name}.err", e.read
+    end
+
     def run_silent(*args)
         (run_stdout *args)[1]
     end
