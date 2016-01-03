@@ -15,10 +15,15 @@ class Probe
         File.open(name, 'w') { |file| file.write(contents) }
     end
 
+    def log_if name, io
+        t = io.read
+        log name, t if not t.empty?
+    end
+
     def log_cmd o, e, *args
         name = namify_cmd *args
-        log "#{name}.out", o.read
-        log "#{name}.err", e.read
+        log_if "#{name}.out", o
+        log_if "#{name}.err", e
     end
 
     def run_silent(*args)
