@@ -1,2 +1,5 @@
 private/
 *swp
+t.rb
+*.err
+*.out
