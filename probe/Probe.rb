@@ -18,12 +18,13 @@ class Probe
     def log_if name, io
         t = io.read
         log name, t if not t.empty?
+        t
     end
 
     def log_cmd o, e, *args
         name = namify_cmd *args
-        log_if "#{name}.out", o
-        log_if "#{name}.err", e
+        return (log_if "#{name}.out", o),
+            (log_if "#{name}.err", e)
     end
 
     def run_silent(*args)
