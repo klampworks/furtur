@@ -33,7 +33,7 @@ class Probe
 
     def run_stdout(*args)
         Open3.popen3 *args do |i, o, e, t|
-            return o.read, t.value.success?
+            return (log_cmd o, e, *args).first, t.value.success?
        end
     end
 
