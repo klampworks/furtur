@@ -7,6 +7,10 @@ Encoding.default_internal = Encoding::UTF_8
 
 class Probe
     
+    def log_time
+        Time.new.strftime "%Y-%m-%d_%H:%M:%S"
+    end
+
     def namify_cmd *args
         URI::encode_www_form [(args.join ' ')]
     end
