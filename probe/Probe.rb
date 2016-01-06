@@ -8,11 +8,15 @@ Encoding.default_internal = Encoding::UTF_8
 class Probe
     
     def log_time
-        Time.new.strftime "%Y-%m-%d_%H:%M:%S"
+        Time.new.strftime "%Y-%m-%d_%H:%M:%S_"
     end
 
     def namify_cmd *args
         URI::encode_www_form [(args.join ' ')]
+    end
+
+    def log_name *args
+        log_time + (namify_cmd *args)
     end
 
     def log name, contents
@@ -26,7 +30,7 @@ class Probe
     end
 
     def log_cmd o, e, *args
-        name = namify_cmd *args
+        name = log_name *args
         return (log_if "#{name}.out", o),
             (log_if "#{name}.err", e)
     end
