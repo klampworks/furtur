@@ -1,5 +1,6 @@
 require 'open3'
 require 'uri'
+require '../cmd/Cmd'
 
 # Some webpages return unicode data through wget.
 Encoding.default_external = Encoding::UTF_8
@@ -7,63 +8,29 @@ Encoding.default_internal = Encoding::UTF_8
 
 class Probe
     
-    def log_time
-        Time.new.strftime "%Y-%m-%d_%H:%M:%S_"
-    end
-
-    def namify_cmd *args
-        URI::encode_www_form [(args.join ' ')]
-    end
-
-    def log_name *args
-        log_time + (namify_cmd *args)
-    end
-
-    def log name, contents
-        File.open(name, 'w') { |file| file.write(contents) }
-    end
-
-    def log_if name, io
-        t = io.read
-        log name, t if not t.empty?
-        t
-    end
-
-    def log_cmd o, e, *args
-        name = log_name *args
-        return (log_if "#{name}.out", o),
-            (log_if "#{name}.err", e)
-    end
-
-    def run_silent(*args)
-        (run_stdout *args)[1]
-    end
-
-    def run_stdout(*args)
-        Open3.popen3 *args do |i, o, e, t|
-            return (log_cmd o, e, *args).first, t.value.success?
-       end
+    def initialize
+        @cmd = Cmd.new
     end
 
     def ping(addr)
-        run_silent "ping", "-c", "1", addr
+        @cmd.run_silent "ping", "-c", "1", addr
     end
 
     def host(name, server="")
         if server.empty?
-            run_silent "host-woods", name
+            @cmd.run_silent "host-woods", name
         else
-            run_silent "host-woods", name, server
+            @cmd.run_silent "host-woods", name, server
         end
     end
 
     def wget(addr)
-        run_stdout "wget", "-O", "-", addr
+        @cmd.run_stdout "wget", "-O", "-", addr
     end
 
     def wget_tor(addr)
         return "", false unless start_tor
-        run_stdout "torify", "wget", "-O", "-", addr
+        @cmd.run_stdout "torify", "wget", "-O", "-", addr
     end
 
     def http_google()
@@ -81,7 +48,7 @@ class Probe
     end
 
     def tor_running?
-        run_silent "ps -e | grep tor"
+        @cmd.run_silent "ps -e | grep tor"
     end
 
     def wait(o, re, to)
@@ -108,10 +75,10 @@ class Probe
     end
 
     def get_gw
-        (/default\W+(?<gw>[0-9\.]+)/.match (run_stdout "route").first)[:gw]
+        (/default\W+(?<gw>[0-9\.]+)/.match (@cmd.run_stdout "route").first)[:gw]
     end
         
     def crawl_gw
-        run_silent "wget", "--mirror", get_gw
+        @cmd.run_silent "wget", "--mirror", get_gw
     end
 end
