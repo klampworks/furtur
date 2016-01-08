@@ -1,6 +1,11 @@
 require './Wifi_base'
+require '../cmd/Cmd'
 
 class Wifi_iw < Wifi_base
+
+    def initialize
+        @cmd = Cmd.new
+    end
 
     def connect()
         return true
