@@ -15,6 +15,10 @@ class Wifi_iw < Wifi_base
         return true
     end
 
+    def scan dev
+        @cmd.run_stdout "iw", dev, scan
+    end
+
     def parse_networks(s)
         aps = Array.new
         i = -1
