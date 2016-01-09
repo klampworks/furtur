@@ -11,8 +11,8 @@ class Wifi_iw < Wifi_base
         @cmd.run_stdout "iw", dev, "connect", essid
     end
 
-    def disconnect()
-        return true
+    def disconnect dev
+        @cmd.run_stdout "iw", dev, "disconnect"
     end
 
     def scan dev
