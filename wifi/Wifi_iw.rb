@@ -7,8 +7,8 @@ class Wifi_iw < Wifi_base
         @cmd = Cmd.new
     end
 
-    def connect()
-        return true
+    def connect dev essid
+        @cmd.run_stdout "iw", dev, "connect", essid
     end
 
     def disconnect()
