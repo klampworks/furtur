@@ -1,6 +1,7 @@
 require 'open3'
 require 'uri'
 require '../cmd/Cmd'
+require '../config'
 
 # Some webpages return unicode data through wget.
 Encoding.default_external = Encoding::UTF_8
@@ -16,11 +17,11 @@ class Probe
         @cmd.run_silent "ping", "-c", "1", addr
     end
 
-    def host(name, server="")
+    def host name, server=""
         if server.empty?
-            @cmd.run_silent "host-woods", name
+            @cmd.run_silent $host, name
         else
-            @cmd.run_silent "host-woods", name, server
+            @cmd.run_silent $host, name, server
         end
     end
 
