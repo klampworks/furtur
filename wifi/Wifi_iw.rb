@@ -15,6 +15,10 @@ class Wifi_iw < Wifi_base
         @cmd.run_stdout "iw", dev, "disconnect"
     end
 
+    def dhcp dev
+        @cmd.run_stdout "dhclient", dev
+    end
+
     def scan dev
         @cmd.run_stdout "iw", dev, scan
     end
