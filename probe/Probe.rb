@@ -14,7 +14,7 @@ class Probe
     end
 
     def ping(addr)
-        @cmd.run_silent "ping", "-c", "1", addr
+        @cmd.run_silent *$ping, addr
     end
 
     def host name, server=""
