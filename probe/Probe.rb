@@ -13,7 +13,7 @@ class Probe
         @cmd = Cmd.new
     end
 
-    def ping(addr)
+    def ping addr
         @cmd.run_silent *$ping, addr
     end
 
@@ -25,8 +25,8 @@ class Probe
         end
     end
 
-    def wget(addr)
-        @cmd.run_stdout "wget", "-O", "-", addr
+    def wget addr
+        @cmd.run_stdout *$wget, addr
     end
 
     def wget_tor(addr)
