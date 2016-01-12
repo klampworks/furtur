@@ -29,9 +29,9 @@ class Probe
         @cmd.run_stdout *$wget, addr
     end
 
-    def wget_tor(addr)
+    def wget_tor addr
         return "", false unless start_tor
-        @cmd.run_stdout "torify", "wget", "-O", "-", addr
+        @cmd.run_stdout *$tor_wget, addr
     end
 
     def http_google()
