@@ -80,6 +80,6 @@ class Probe
     end
         
     def crawl_gw
-        @cmd.run_silent "wget", "--mirror", get_gw
+        @cmd.run_silent *$crawl, get_gw
     end
 end
