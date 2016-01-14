@@ -30,11 +30,11 @@ class Cmd
             (log_if "#{name}.err", e)
     end
 
-    def run_silent(*args)
+    def run_silent *args
         (run_stdout *args)[1]
     end
 
-    def run_stdout(*args)
+    def run_stdout *args
         Open3.popen3 *args do |i, o, e, t|
             return (log_cmd o, e, *args).first, t.value.success?
        end
