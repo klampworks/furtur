@@ -1,14 +1,14 @@
 class Wifi_base
 
-    def connect()
+    def connect
         return true
     end
 
-    def disconnect()
+    def disconnect
         return true
     end
 
-    def parse_networks(s)
+    def parse_networks s
     end
 end 
 
