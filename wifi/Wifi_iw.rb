@@ -1,5 +1,6 @@
 require './Wifi_base'
 require '../cmd/Cmd'
+require '../config'
 
 class Wifi_iw < Wifi_base
 
@@ -16,7 +17,7 @@ class Wifi_iw < Wifi_base
     end
 
     def dhcp dev
-        @cmd.run_stdout "dhclient", dev
+        @cmd.run_stdout *$dhcp, dev
     end
 
     def scan dev
