@@ -23,7 +23,7 @@ class Wifi_iw < Wifi_base
         @cmd.run_stdout "iw", dev, scan
     end
 
-    def parse_networks(s)
+    def parse_networks s
         aps = Array.new
         i = -1
 
