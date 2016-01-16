@@ -19,9 +19,9 @@ class Probe
 
     def host name, server=""
         if server.empty?
-            @cmd.run_silent $host, name
+            @cmd.run_silent *$host, name
         else
-            @cmd.run_silent $host, name, server
+            @cmd.run_silent *$host, name, server
         end
     end
 
