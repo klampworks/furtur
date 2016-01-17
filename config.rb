@@ -1,6 +1,6 @@
 require './cmd/Cmd'
 
-def which? b
+def cmd_exists? b
     Cmd.new.run_silent "which", b    
 end
 
